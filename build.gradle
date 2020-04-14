@@ -1,0 +1,52 @@
+group 'com.example'
+version '0.0.1'
+
+subprojects {
+
+    apply plugin: 'java'
+
+    task "create-dirs" << {
+        sourceSets*.java.srcDirs*.each {
+            it.mkdirs()
+        }
+        sourceSets*.resources.srcDirs*.each {
+            it.mkdirs()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "http://47.102.99.93:8081/repository/panghu/" }
+    }
+
+    dependencies {
+
+        compile(group: 'base-core', name: 'base', version: "${base_version}")
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.2.2.RELEASE'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.2.2.RELEASE'
+        // https://mvnrepository.com/artifact/org.projectlombok/lombok
+        compile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+
+        compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.4.RELEASE'
+
+        // https://mvnrepository.com/artifact/org.fusesource/camel-sap
+        compile group: 'org.fusesource', name: 'camel-sap', version: '7.6.0.fuse-760024-redhat-00001'
+
+
+
+
+        //jackson
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.8'
+        compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-jaxb-annotations', version: '2.9.8'
+
+    }
+
+
+}

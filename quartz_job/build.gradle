@@ -1,0 +1,61 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+sourceCompatibility = '1.8'
+group 'com.example'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+    maven { url "http://47.102.99.93:8081/repository/panghu/" }
+}
+
+
+apply plugin: 'org.springframework.boot'
+
+ext {
+    set('springCloudVersion', "Hoxton.SR1")
+}
+
+dependencies {
+
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    //定时任务配置
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.2'
+    compile group: 'org.quartz-scheduler', name: 'quartz-jobs', version: '2.2.2'
+//    compile group: 'org.springframework', name: 'spring-context-support', version: '5.2.5.RELEASE'
+
+    compile(group: 'base-core', name: 'base', version: "0.0.7")
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.4.RELEASE'
+
+
+    // fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.58'
+
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
